@@ -3,6 +3,9 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
+    @tasks = Task.where(completed:false)
+    @done_tasks = Task.where(completed:true)
+    @task = Task.new
     @tasks = Task.all
   end
 
@@ -25,7 +28,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to task_url(@task), notice: "Task was successfully created." }
+        format.html { redirect_to tasks_url, notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new, status: :unprocessable_entity }
