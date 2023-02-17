@@ -6,12 +6,20 @@ class TasksController < ApplicationController
     @tasks = Task.where(completed:false)
     @done_tasks = Task.where(completed:true)
     @task = Task.new
-    @tasks = Task.all
+    
   end
 
   # GET /tasks/1 or /tasks/1.json
   def show
   end
+
+  def active
+    @task = Task.find(params[:id])
+    @task.update(completed: !@task.completed)
+    respond_to do |format|
+      format.turbo_stream { render partial: '/tasks/active', locals: { task: @task}}
+    end
+  end 
 
   # GET /tasks/new
   def new
