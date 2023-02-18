@@ -1,7 +1,29 @@
-<div id="<%= dom_id task %>">
+<style>
+@keyframes highlight {
+    0% {
+        background-color: #8f8;
+    }
+    100% {
+        background-color: none;
+    }
+} 
+
+.highlight {
+    animation:highlight 1s;
+}
+</style>
+
+<div id="<%= dom_id task %>" class="highlight" >
   <%= check_box_tag :completed, task.completed, task.completed,
     data: {id: task.id, controller: 'check', action: 'check#active'}
   %> 
   <%= task.name %>
+  <div class="task-<%= task.id %>">
+  <% taskid = task.id %>
+  <%= link_to "delete", url_for("http://localhost:3000/task/#{taskid}/destroy"), data: {
+    turbo_method: :delete,
+    turbo_confirm: "Are you sure?"
+  } %> 
+ </div>
 
 </div>
