@@ -11,14 +11,20 @@
 .highlight {
     animation:highlight 1s;
 }
+
+.task-item .task-name,
+.task-item .task-actions {
+  display: inline-block;
+  vertical-align: middle;
+}
 </style>
 
-<div id="<%= dom_id task %>" class="highlight" >
+<div id="<%= dom_id task %>" class="highlight task-item" >
   <%= check_box_tag :completed, task.completed, task.completed,
     data: {id: task.id, controller: 'check', action: 'check#active'}
   %> 
-  <%= task.name %>
-  <div class="task-<%= task.id %>">
+  <span class="task-name"><%= task.name %></span>
+  <div class="task-actions">
   <% taskid = task.id %>
   <%= link_to "delete", url_for("http://localhost:3000/task/#{taskid}/destroy"), data: {
     turbo_method: :delete,

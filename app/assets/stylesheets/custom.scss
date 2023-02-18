@@ -10,3 +10,21 @@
 .highlight {
     animation:highlight 1s;
 }
+body {
+    background-color: #e67777;
+  }
+  
+.task-item .task-name,
+.task-item .task-actions {
+  display: inline-block;
+  vertical-align: middle;
+}
+.lists-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .todo-list, .done-list {
+    flex-basis: 50%;
+    padding: 10px;
+  }

@@ -1,10 +1,36 @@
-<p style="color: green"><%= notice %></p>
+<style>
+body{
+  padding-left:10%;
+  padding-right:10%;
+  padding-top:5%;
+  font-size:20px;
+  line-height:2.0;
+  background-color:#444654;
+  color:white;
+}
+
+h3, h1 {
+  color:orange;
+}
+
+.lists-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.todo-list, .done-list {
+  flex-basis: 50%;
+  padding: 10px;
+}
+</style>
+
+<p style="color:#fff"><%= notice %></p>
 
 <h1>Tasks </h1>
-
+<br>
 <%= form_with(model: @task, class: "row g-3") do |form| %>
  <div class="col-auto">
-  <%= form.label "Name" %>
+  <!--<%= form.label "Name" %>-->
   <%= form.text_field :name %>
  </div>
 
@@ -13,31 +39,22 @@
  </div>
 <% end %>
 
-<!--
-<div id="tasks">
-  <% @tasks.each do |task| %>
-    <%= render task %>
-    <p>
-      <%= button_to "Destroy this task", task, method: :delete %>
-    </p>
-  <% end %>
+
+<br>
+<div class="lists-container">
+  <div class="todo-list">
+    <h3>TO DO</h3>
+    <%= turbo_frame_tag "todo_list" do %>
+      <% @tasks.each do |task| %>
+        <%= render task %>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <div style="border-left: 1px solid white;" class="done-list">
+    <h3>DONE</h3>
+    <%= turbo_frame_tag "done_list" do %>
+      <%= render @done_tasks %>
+    <% end %>
+  </div>
 </div>
-
-<%= link_to "New task", new_task_path %>
--->
-
-<h3> TO DO </h3>
-<%= turbo_frame_tag "todo_list" do %>
-  <% @tasks.each do |task| %>
-    <%= render task %>
-
-
-   
-
-  <% end %>
-
-<% end %>
-<h3> DONE </h3>
-<%= turbo_frame_tag "done_list" do %>
-  <%= render @done_tasks %>
-<% end %>
